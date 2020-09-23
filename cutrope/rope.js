@@ -17,7 +17,7 @@ class Rope{
             y=this.offset1.y;
         }
         for (let i=0;i<=this.length;i++){
-            let cir=Bodies.circle(x,y+27*i,10,{collisionFilter:{group:-1},friction:0,frictionAir:0});
+            let cir=Bodies.circle(x,y+27*i,10,{collisionFilter:{group:-1},friction:0,frictionAir:0,render:{sprite:{texture:'./images/chain.png'}}});
             this.rope[0].push(cir);
             World.add(world,cir);
         }
@@ -32,7 +32,13 @@ class Rope{
                 frictionAir:0,
                 friction:0,
                 length:7,
-                angularStiffness:0
+                angularStiffness:0,
+                render:{
+                    anchors:false,
+                    strokeStyle:'#7b979d',
+                    lineWidth:5
+
+                }
             });
             this.rope[1].push(cons);
             World.add(world,cons);
@@ -59,4 +65,13 @@ class Rope{
         this.rope[1].push(this.pivot1,this.pivot2);
         World.add(world,[this.pivot1,this.pivot2]);
     }
+    cut_rope(){
+        for (i=0;i<this.rope[0].length;i++){
+            World.remove(world,this.rope[0][i]);
+        }
+        for (j=0;j<this.rope[1].length;j++){
+            World.remove(world,this.rope[1][j]);
+        }
+    }
 }
+
