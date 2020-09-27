@@ -32,7 +32,7 @@ class Rope{
                 damping:0,
                 frictionAir:0,
                 friction:0,
-                length:5,
+                length:0,
                 angularStiffness:0,
                 render:{
                     anchors:false,
@@ -43,6 +43,51 @@ class Rope{
             });
             this.rope[1].push(cons);
             World.add(world,cons);
+        }
+        // adding same cons at same points
+        for (let i=0;i<this.length;i++){
+            let cons1=Constraint.create({
+                bodyA:this.rope[0][i],
+                pointA:{x:0,y:10},
+                bodyB:this.rope[0][i+1],
+                pointB:{x:0,y:-10},
+                stiffness:1,
+                damping:0,
+                frictionAir:0,
+                friction:0,
+                length:0,
+                angularStiffness:0,
+                render:{
+                    anchors:false,
+                    strokeStyle:'#ffff00',
+                    lineWidth:2
+
+                }
+            });
+            this.rope[1].push(cons1);
+            World.add(world,cons1);
+        }
+        for (let i=0;i<this.length;i++){
+            let cons2=Constraint.create({
+                bodyA:this.rope[0][i],
+                pointA:{x:0,y:10},
+                bodyB:this.rope[0][i+1],
+                pointB:{x:0,y:-10},
+                stiffness:1,
+                damping:0,
+                frictionAir:0,
+                friction:0,
+                length:0,
+                angularStiffness:0,
+                render:{
+                    anchors:false,
+                    strokeStyle:'#0000ff',
+                    lineWidth:1
+
+                }
+            });
+            this.rope[1].push(cons2);
+            World.add(world,cons2);
         }
         // for (let i=0;i<this.length-1;i++){
         //     let cons1=Constraint.create({
@@ -72,7 +117,7 @@ class Rope{
             friction:0,
             length:0
         });
-        Engine.update(engine,1/24*1000);
+        //Engine.update(engine,1/24*1000);
         //console.log(this.offset2,this.body2);
         //console.log('pie',pie.position);
         this.pivot2=Constraint.create({
@@ -84,7 +129,7 @@ class Rope{
             friction:0,
             length:0,
             render:{
-                strokeStyle:'#000000'
+                strokeStyle:'#ffff00'
             }
         });
         //this.rope[1].push(this.pivot1,this.pivot2);

@@ -9,11 +9,12 @@ let Engine = Matter.Engine,
     Bodies = Matter.Bodies,
     Query=Matter.Query,
     Constraint=Matter.Constraint,
-    Bounds=Matter.Bounds;
+    Bounds=Matter.Bounds,
+    Body=Matter.Body;
     //(123,151,127)
 sprites=['images/eating/eating1.png','images/eating/eating2.png','images/eating/eating3.png','images/eating/eating4.png','images/eating/eating3.png','images/eating/eating2.png']
 function create_background(){
-    let back=Bodies.rectangle(500,500,600,800,{isStatic:true,collisionFilter:{group:-1},inertia:Infinity,render:{sprite:{texture:'./images/back.png'}}}),
+    let back=Bodies.rectangle(500,500,600,800,{isStatic:true,collisionFilter:{group:-1},inertia:Infinity,render:{sprite:{texture:'./images/back.png'},strokeStyle:'#2'}}),
         wall1=Bodies.rectangle(150,500,100,800,{isStatic:true,inertia:Infinity,render:{opacity:0}}),
         wall2=Bodies.rectangle(850,500,100,800,{isStatic:true,inertia:Infinity,render:{opacity:0}}),
         wall3=Bodies.rectangle(500,50,800,100,{isStatic:true,inertia:Infinity,render:{opacity:0}}),
@@ -38,14 +39,16 @@ function setup(){
     Render.run(render);
     //data={x:100,y:22,width:50,height:50};
     create_background();
-    pie=Bodies.circle(190,850,23,{collisionFilter:{group:-1},frictionAir:0,friction:0,mass:5,render:{sprite:{texture:'./images/candy.png'}}});
+    pie=Bodies.circle(500,870,24,{collisionFilter:{group:-1},frictionAir:0,friction:0,render:{sprite:{texture:'./images/candy.png'}}});
+    Body.setDensity(pie,0.017);
     ropes=[];
     balloons=[];
-    balloons.push(new Balloon(190,800,pie,null,7));
-    //ropes.push(new Rope(null,pie,{x:500,y:150},null,15));
+    balloons.push(new Balloon(250,650,pie,null,13));
+    //balloons.push(new Balloon(750,650,pie,null,13));
+    ropes.push(new Rope(null,pie,{x:700,y:600},null,20));
     //ropes.push(new Rope(null,pie,{x:400,y:0},null,25))
     stars=[];
-    stars.push(new Star(500,600));
+    stars.push(new Star(750,200));
     stars.push(new Star(500,650));
     stars.push(new Star(500,700));
     World.add(world,[pie]);
@@ -53,7 +56,11 @@ function setup(){
     omnom=new Green(700,800);
     pie_eat=false;
     pixelDensity();
-    World.add(world,Bodies.rectangle(500,400,700,20,{isStatic:true,angle:-PI/6,friction:0}));
+    World.add(world,[
+        Bodies.rectangle(400,400,200,20,{isStatic:true,inertia:Infinity,angle:PI/6}),
+        Bodies.rectangle(600,400,200,20,{isStatic:true,inertia:Infinity,angle:-PI/6}),
+    ]);
+    Engine.update(engine);
 }
 function draw(){
     //console.log('here',balloons[0].balloon_rope.pivot2.bodyB.render);
