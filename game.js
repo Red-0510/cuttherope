@@ -29,8 +29,8 @@ function setup(){
         element:document.body,
         engine:engine,
         options:{
-            width:1000,
-            height:1000,
+            width:80vh,
+            height:100vh,
             wireframes:false,
             showAngleIndicator:false,
         }
