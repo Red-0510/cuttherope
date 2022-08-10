@@ -23,14 +23,16 @@ function create_background(){
 }
 function setup(){
     noCanvas();
+    // let canvas=document.getElementById('canva');
     engine=Engine.create({positionIterations:100,constraintsIterations:100});
     world=engine.world;
     render=Render.create({
         element:document.body,
         engine:engine,
+        // canvas:canvas,
         options:{
-            width:"80vh",
-            height:"100vh",
+            width:1000,
+            height:1000,
             wireframes:false,
             showAngleIndicator:false,
         }
